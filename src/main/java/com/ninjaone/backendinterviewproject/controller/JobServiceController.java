@@ -5,6 +5,8 @@ import com.ninjaone.backendinterviewproject.service.JobServiceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,23 +21,23 @@ public class JobServiceController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     private JobService postDeviceEntity(@RequestBody JobService jobService) {
-        return service.saveDeviceEntity(jobService);
+        return service.saveJobServiceEntity(jobService);
     }
 
     @GetMapping()
     private List<JobService> getDevices() {
-        return service.getDevices();
+        return service.getJobService();
     }
     
     @GetMapping("/{id}")
     private JobService getDeviceEntity(@PathVariable Long id) {
-        return service.getDeviceEntity(id)
+        return service.getJobServiceEntity(id)
                 .orElseThrow();
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     private void deleteDeviceEntity(@PathVariable Long id) {
-        service.deleteDeviceEntity(id);
+        service.deleteJobServiceEntity(id);
     }
 }

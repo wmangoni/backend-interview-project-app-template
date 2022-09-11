@@ -16,12 +16,12 @@ public class JobService {
     private Long id;
 
     private String name;
-    private BigDecimal cost;
+    private String cost;
 
     public JobService() {
     }
 
-    public JobService(Long id, String name, BigDecimal cost) {
+    public JobService(Long id, String name, String cost) {
         this.id = id;
         this.name = name;
         this.cost = cost;
@@ -43,11 +43,11 @@ public class JobService {
         this.name = name;
     }
 
-    public BigDecimal getCost() {
+    public String getCost() {
         return cost;
     }
 
-    public void setCost(BigDecimal cost) {
+    public void setCost(String cost) {
         this.cost = cost;
     }
 }

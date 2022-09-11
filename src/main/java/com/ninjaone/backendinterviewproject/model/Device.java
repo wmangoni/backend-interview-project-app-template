@@ -1,38 +1,27 @@
 package com.ninjaone.backendinterviewproject.model;
 
 import com.ninjaone.backendinterviewproject.domain.DeviceType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 @Entity
-@Table(uniqueConstraints = {
+@Table(name = "Device", uniqueConstraints = {
         @UniqueConstraint(name = "UniqueDeviceNameAndType", columnNames = {"systemName", "type"})
 })
 public class Device {
+
     @Id
     private Long id;
 
     private String systemName;
+
     private DeviceType type;
-
-    public Device() {
-    }
-
-    public Device(Long id, String systemName, DeviceType deviceType) {
-        this.id = id;
-        this.systemName = systemName;
-        this.type = deviceType;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getSystemName() {
-        return systemName;
-    }
-
-    public DeviceType getType() {
-        return type;
-    }
 }

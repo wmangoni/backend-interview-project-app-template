@@ -1,7 +1,6 @@
 package com.ninjaone.backendinterviewproject.service;
 
 import com.ninjaone.backendinterviewproject.database.JobServiceRepository;
-import com.ninjaone.backendinterviewproject.model.Device;
 import com.ninjaone.backendinterviewproject.model.JobService;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +17,19 @@ public class JobServiceService {
         this.repository = repository;
     }
 
-    public List<JobService> getDevices() {
+    public List<JobService> getJobService() {
         return new ArrayList<>((Collection<? extends JobService>) repository.findAll());
     }
 
-    public JobService saveDeviceEntity(JobService device) {
+    public JobService saveJobServiceEntity(JobService device) {
         return repository.save(device);
     }
 
-    public Optional<JobService> getDeviceEntity(Long id) {
+    public Optional<JobService> getJobServiceEntity(Long id) {
         return repository.findById(id);
     }
 
-    public void deleteDeviceEntity(Long id) {
+    public void deleteJobServiceEntity(Long id) {
         repository.deleteById(id);
     }
 }
