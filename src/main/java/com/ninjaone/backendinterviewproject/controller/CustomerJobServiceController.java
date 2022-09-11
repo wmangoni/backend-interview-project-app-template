@@ -1,6 +1,5 @@
 package com.ninjaone.backendinterviewproject.controller;
 
-import com.ninjaone.backendinterviewproject.model.CustomerDevice;
 import com.ninjaone.backendinterviewproject.model.CustomerJobService;
 import com.ninjaone.backendinterviewproject.service.CustomerJobServiceService;
 import org.springframework.http.HttpStatus;
@@ -11,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer-jobservices")
 public class CustomerJobServiceController {
+
     private final CustomerJobServiceService service;
 
     public CustomerJobServiceController(CustomerJobServiceService service) {
