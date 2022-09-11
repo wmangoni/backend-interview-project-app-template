@@ -28,5 +28,5 @@ public class CustomerDevice {
     @JoinColumn(name = "deviceId", referencedColumnName="id")
     private Device device;
 
-    private Integer quantity;
+    private Long quantity;
 }

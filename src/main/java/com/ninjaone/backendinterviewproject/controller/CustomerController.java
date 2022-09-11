@@ -4,7 +4,6 @@ import com.ninjaone.backendinterviewproject.domain.DeviceType;
 import com.ninjaone.backendinterviewproject.model.Customer;
 import com.ninjaone.backendinterviewproject.model.CustomerDevice;
 import com.ninjaone.backendinterviewproject.model.CustomerJobService;
-import com.ninjaone.backendinterviewproject.model.Device;
 import com.ninjaone.backendinterviewproject.service.CustomerDeviceService;
 import com.ninjaone.backendinterviewproject.service.CustomerJobServiceService;
 import com.ninjaone.backendinterviewproject.service.CustomerService;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
@@ -62,6 +60,16 @@ public class CustomerController {
         List<CustomerDevice> devices = customerDeviceService.getDevicesByCustomerId(customerId);
         List<CustomerJobService> jobServices = customerJobServiceService.getServicesByCustomerId(customerId);
 
+        BigDecimal macQty = devices.stream()
+                .filter(c -> c.getDevice().getType() == DeviceType.MAC)
+                .map(c -> BigDecimal.valueOf(c.getQuantity()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal windowsQty = devices.stream()
+                .filter(c -> c.getDevice().getType() != DeviceType.MAC)
+                .map(c -> BigDecimal.valueOf(c.getQuantity()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
         BigDecimal devicesPrice = devices.stream()
                 .map(customerDevice -> new BigDecimal("4.0").multiply(BigDecimal.valueOf(customerDevice.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -69,26 +77,20 @@ public class CustomerController {
         BigDecimal jobServicesPrice = jobServices.stream()
                 .filter(cjs -> !cjs.getJobService().getName().equals("Antivirus"))
                 .map(js -> new BigDecimal(js.getJobService().getCost()))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .multiply(macQty.add(windowsQty));
 
-        if (jobServices.stream().anyMatch(c -> c.getJobService().getName().equals("Antivirus"))) {
-            BigDecimal antivirusCost = jobServices.stream()
-                    .filter(cjs -> cjs.getJobService().getName().equals("Antivirus"))
-                    .map(js -> {
-                        BigDecimal valuesForMac = devices.stream()
-                                .filter(d -> d.getDevice().getType() == DeviceType.MAC)
-                                .map(c -> new BigDecimal("7.0")).reduce(BigDecimal.ZERO, BigDecimal::add);
-                        BigDecimal valuesForNonMac = devices.stream()
-                                .filter(d -> d.getDevice().getType() != DeviceType.MAC)
-                                .map(c -> new BigDecimal("5.0")).reduce(BigDecimal.ZERO, BigDecimal::add);
+        if (hasAntivirus(jobServices)) {
+            BigDecimal macAntivirusTotalCost = BigDecimal.valueOf(7.0).multiply(macQty);
+            BigDecimal windowsAntivirusTotalCost = BigDecimal.valueOf(5.0).multiply(windowsQty);
 
-                        return valuesForMac.add(valuesForNonMac);
-                    })
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-            return devicesPrice.add(jobServicesPrice).add(antivirusCost);
+            return devicesPrice.add(jobServicesPrice).add(macAntivirusTotalCost.add(windowsAntivirusTotalCost));
         }
 
         return devicesPrice.add(jobServicesPrice);
+    }
+
+    private boolean hasAntivirus(List<CustomerJobService> jobServices) {
+        return jobServices.stream().anyMatch(c -> c.getJobService().getName().equals("Antivirus"));
     }
 }

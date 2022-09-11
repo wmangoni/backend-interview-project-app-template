@@ -1,15 +1,18 @@
-INSERT INTO DEVICE VALUES(1, 'Windows Work', 0);
-INSERT INTO DEVICE VALUES(2, 'Mac', 2);
-INSERT INTO DEVICE VALUES(3, 'Windows Server', 1);
+INSERT INTO DEVICE ("ID", "SYSTEM_NAME", "TYPE") VALUES
+(1, 'Windows Work', 0),
+(2, 'Mac', 2),
+(3, 'Windows Server', 1);
 
-INSERT INTO JOB_SERVICE VALUES(1, 'Antivirus', '5.0');
-INSERT INTO JOB_SERVICE VALUES(2, 'Backup', '3.0');
-INSERT INTO JOB_SERVICE VALUES(3, 'PSA', '2.0');
-INSERT INTO JOB_SERVICE VALUES(4, 'Screen Share', '1.0');
+INSERT INTO JOB_SERVICE ("ID", "NAME", "COST") VALUES
+(1, 'Antivirus', '5.0'),
+(2, 'Backup', '3.0'),
+(3, 'PSA', '2.0'),
+(4, 'Screen Share', '1.0');
 
-INSERT INTO CUSTOMER VALUES(1, 'customer A');
-INSERT INTO CUSTOMER VALUES(2, 'customer B');
-INSERT INTO CUSTOMER VALUES(3, 'customer C');
+INSERT INTO CUSTOMER VALUES
+(1, 'customer A'),
+(2, 'customer B'),
+(3, 'customer C');
 
 INSERT INTO CUSTOMER_DEVICE ("ID", "CUSTOMER_ID", "DEVICE_ID", "QUANTITY") VALUES
 (1, 1, 1, 3),
