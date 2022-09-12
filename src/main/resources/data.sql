@@ -24,4 +24,5 @@ INSERT INTO CUSTOMER_JOB_SERVICE ("ID", "CUSTOMER_ID", "JOB_SERVICE_ID") VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 2, 3),
-(4, 2, 4);
+(4, 2, 4),
+(5, 2, 1);

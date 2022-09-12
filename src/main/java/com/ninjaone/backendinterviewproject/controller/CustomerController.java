@@ -1,6 +1,5 @@
 package com.ninjaone.backendinterviewproject.controller;
 
-import com.ninjaone.backendinterviewproject.domain.DeviceType;
 import com.ninjaone.backendinterviewproject.model.Customer;
 import com.ninjaone.backendinterviewproject.model.CustomerDevice;
 import com.ninjaone.backendinterviewproject.model.CustomerJobService;
@@ -56,29 +55,17 @@ public class CustomerController {
     }
 
     @GetMapping("/{customerId}/calculate-price")
-    private BigDecimal calculatePrice(@PathVariable Long customerId) {
+    private BigDecimal calculatePriceByCustomer(@PathVariable Long customerId) {
         List<CustomerDevice> devices = customerDeviceService.getDevicesByCustomerId(customerId);
         List<CustomerJobService> jobServices = customerJobServiceService.getServicesByCustomerId(customerId);
 
-        BigDecimal macQty = devices.stream()
-                .filter(c -> c.getDevice().getType() == DeviceType.MAC)
-                .map(c -> BigDecimal.valueOf(c.getQuantity()))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal macQty = customerDeviceService.getMacQty(devices);
 
-        BigDecimal windowsQty = devices.stream()
-                .filter(c -> c.getDevice().getType() != DeviceType.MAC)
-                .map(c -> BigDecimal.valueOf(c.getQuantity()))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal windowsQty = customerDeviceService.getWindowsQty(devices);
 
-        BigDecimal devicesPrice = devices.stream()
-                .map(customerDevice -> new BigDecimal("4.0").multiply(BigDecimal.valueOf(customerDevice.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal devicesPrice = customerDeviceService.getDevicesPrice(devices);
 
-        BigDecimal jobServicesPrice = jobServices.stream()
-                .filter(cjs -> !cjs.getJobService().getName().equals("Antivirus"))
-                .map(js -> new BigDecimal(js.getJobService().getCost()))
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .multiply(macQty.add(windowsQty));
+        BigDecimal jobServicesPrice = customerJobServiceService.getJobServicesCost(jobServices, macQty, windowsQty);
 
         if (hasAntivirus(jobServices)) {
             BigDecimal macAntivirusTotalCost = BigDecimal.valueOf(7.0).multiply(macQty);
