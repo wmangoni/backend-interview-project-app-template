@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer-device")
 public class CustomerDeviceController {
+
     private final CustomerDeviceService service;
 
     public CustomerDeviceController(CustomerDeviceService service) {
@@ -35,7 +36,7 @@ public class CustomerDeviceController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    private void deleteCustomerEntity(@PathVariable Long id) {
+    private void deleteCustomerDeviceEntity(@PathVariable Long id) {
         service.deleteCustomerDeviceEntity(id);
     }
 

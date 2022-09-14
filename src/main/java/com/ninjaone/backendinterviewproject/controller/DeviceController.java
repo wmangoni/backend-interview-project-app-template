@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/device")
 public class DeviceController {
+
     private final DeviceService service;
 
     public DeviceController(DeviceService service) {
