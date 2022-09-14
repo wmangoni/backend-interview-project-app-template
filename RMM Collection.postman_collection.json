@@ -1,0 +1,148 @@
+{
+	"variables": [],
+	"info": {
+		"name": "RMM Collection",
+		"_postman_id": "a96b40af-394f-c638-0297-11da456fa41b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET device",
+			"request": {
+				"url": "http://localhost:8080/device",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET service",
+			"request": {
+				"url": "http://localhost:8080/jobservice",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST device",
+			"request": {
+				"url": "http://localhost:8080/device",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\": 3,\r\n\t\"systemName\": \"system name 3\",\r\n\t\"type\": \"WINDOWS_SERVER\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST service",
+			"request": {
+				"url": "http://localhost:8080/jobservice",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 1,\n\t\"name\": \"Antivirus\",\n\t\"cost\": 4.0\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE device",
+			"request": {
+				"url": "http://localhost:8080/device/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE service",
+			"request": {
+				"url": "http://localhost:8080/jobservice/1",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET calculate-price",
+			"request": {
+				"url": "http://localhost:8080/customer/1/calculate-price",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST jobService",
+			"request": {
+				"url": "http://localhost:8080/jobservice",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": 2,\n\t\"name\": \"BKP\",\n\t\"cost\": 4.2\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET customer-device",
+			"request": {
+				"url": "http://localhost:8080/customer-device",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET customer-jobservices/customer",
+			"request": {
+				"url": "http://localhost:8080/customer-jobservices/customer/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
