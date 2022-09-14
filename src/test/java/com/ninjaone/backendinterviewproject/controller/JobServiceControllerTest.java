@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ninjaone.backendinterviewproject.BackendInterviewProjectApplication;
 import com.ninjaone.backendinterviewproject.domain.DeviceType;
 import com.ninjaone.backendinterviewproject.model.Device;
+import com.ninjaone.backendinterviewproject.model.JobService;
 import com.ninjaone.backendinterviewproject.service.DeviceService;
+import com.ninjaone.backendinterviewproject.service.JobServiceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,16 +25,18 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BackendInterviewProjectApplication.class})
-@WebMvcTest(DeviceController.class)
+@WebMvcTest(JobServiceController.class)
 @AutoConfigureMockMvc
 @AutoConfigureDataJpa
-public class DeviceControllerTest {
+public class JobServiceControllerTest {
     public static final Long ID = 1L;
 
     @Autowired
@@ -42,31 +46,33 @@ public class DeviceControllerTest {
     ObjectMapper objectMapper;
 
     @MockBean
-    private DeviceService service;
+    private JobServiceService service;
 
-    private Device entity;
+    private JobService entity;
+
+    private static final String path = "/jobservice";
 
     @BeforeEach
     void setup() {
-        entity = new Device(ID, "value", DeviceType.WINDOWS_WORKSTATION);
+        entity = new JobService(ID, "name", "1.0");
     }
 
     @Test
-    void getDeviceEntity() throws Exception {
-        when(service.getDeviceEntity(ID)).thenReturn(Optional.of(entity));
+    void getJobServiceEntity() throws Exception {
+        when(service.getJobServiceEntity(ID)).thenReturn(Optional.of(entity));
 
-        mockMvc.perform(get("/device/" + ID))
+        mockMvc.perform(get(path + "/" + ID))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().string(objectMapper.writeValueAsString(entity)));
     }
 
     @Test
-    void postDeviceEntity() throws Exception {
-        when(service.saveDeviceEntity(any())).thenReturn(entity);
+    void postJobServiceEntity() throws Exception {
+        when(service.saveJobServiceEntity(any())).thenReturn(entity);
 
         String DeviceEntityString = objectMapper.writeValueAsString(entity);
-        mockMvc.perform(post("/device")
+        mockMvc.perform(post(path)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(DeviceEntityString))
                 .andExpect(status().isCreated())
@@ -74,10 +80,10 @@ public class DeviceControllerTest {
     }
 
     @Test
-    void deleteDeviceEntity() throws Exception {
-        doNothing().when(service).deleteDeviceEntity(ID);
+    void deleteDeviceData() throws Exception {
+        doNothing().when(service).deleteJobServiceEntity(ID);
 
-        mockMvc.perform(delete("/device/" + ID))
+        mockMvc.perform(delete(path + "/" + ID))
                 .andExpect(status().isNoContent());
     }
 }

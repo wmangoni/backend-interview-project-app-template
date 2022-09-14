@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/jobservice")
 public class JobServiceController {
+
     private final JobServiceService service;
 
     public JobServiceController(JobServiceService service) {
@@ -20,24 +21,24 @@ public class JobServiceController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private JobService postDeviceEntity(@RequestBody JobService jobService) {
+    private JobService postJobServiceEntity(@RequestBody JobService jobService) {
         return service.saveJobServiceEntity(jobService);
     }
 
     @GetMapping()
-    private List<JobService> getDevices() {
+    private List<JobService> getJobServices() {
         return service.getJobService();
     }
     
     @GetMapping("/{id}")
-    private JobService getDeviceEntity(@PathVariable Long id) {
+    private JobService getJobServiceEntity(@PathVariable Long id) {
         return service.getJobServiceEntity(id)
                 .orElseThrow();
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    private void deleteDeviceEntity(@PathVariable Long id) {
+    private void deleteJobServiceEntity(@PathVariable Long id) {
         service.deleteJobServiceEntity(id);
     }
 }

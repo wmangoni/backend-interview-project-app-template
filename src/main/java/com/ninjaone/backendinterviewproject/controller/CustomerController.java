@@ -24,8 +24,7 @@ public class CustomerController {
     public CustomerController(
             final CustomerService service,
             final CustomerDeviceService customerDeviceService,
-            final CustomerJobServiceService customerJobServiceService,
-            final DeviceService deviceService) {
+            final CustomerJobServiceService customerJobServiceService) {
         this.service = service;
         this.customerDeviceService = customerDeviceService;
         this.customerJobServiceService = customerJobServiceService;
