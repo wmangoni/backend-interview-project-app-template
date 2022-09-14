@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BackendInterviewProjectApplication.class})
 @WebMvcTest(CustomerJobServiceController.class)
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @AutoConfigureDataJpa
 public class CustomerJobServiceControllerTest {
     public static final Long ID = 1L;

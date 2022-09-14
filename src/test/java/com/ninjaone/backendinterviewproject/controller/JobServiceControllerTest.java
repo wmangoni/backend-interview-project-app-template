@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BackendInterviewProjectApplication.class})
 @WebMvcTest(JobServiceController.class)
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @AutoConfigureDataJpa
 public class JobServiceControllerTest {
     public static final Long ID = 1L;

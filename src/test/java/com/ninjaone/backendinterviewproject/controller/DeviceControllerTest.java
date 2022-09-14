@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {BackendInterviewProjectApplication.class})
 @WebMvcTest(DeviceController.class)
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @AutoConfigureDataJpa
 public class DeviceControllerTest {
     public static final Long ID = 1L;
