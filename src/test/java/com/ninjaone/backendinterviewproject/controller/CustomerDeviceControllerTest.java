@@ -6,9 +6,7 @@ import com.ninjaone.backendinterviewproject.domain.DeviceType;
 import com.ninjaone.backendinterviewproject.model.Customer;
 import com.ninjaone.backendinterviewproject.model.CustomerDevice;
 import com.ninjaone.backendinterviewproject.model.Device;
-import com.ninjaone.backendinterviewproject.model.JobService;
 import com.ninjaone.backendinterviewproject.service.CustomerDeviceService;
-import com.ninjaone.backendinterviewproject.service.JobServiceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,9 +25,7 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -40,19 +36,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureDataJpa
 public class CustomerDeviceControllerTest {
     public static final Long ID = 1L;
-
-    @Autowired
-    private MockMvc mockMvc;
-
+    private static final String path = "/customer-device";
     @Autowired
     ObjectMapper objectMapper;
-
+    @Autowired
+    private MockMvc mockMvc;
     @MockBean
     private CustomerDeviceService service;
-
     private CustomerDevice entity;
-
-    private static final String path = "/customer-device";
 
     @BeforeEach
     void setup() {

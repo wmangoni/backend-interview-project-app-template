@@ -21,10 +21,10 @@ public class CustomerJobService {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="customerId", referencedColumnName="id")
+    @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="jobServiceId", referencedColumnName="id")
+    @JoinColumn(name = "jobServiceId", referencedColumnName = "id")
     private JobService jobService;
 }

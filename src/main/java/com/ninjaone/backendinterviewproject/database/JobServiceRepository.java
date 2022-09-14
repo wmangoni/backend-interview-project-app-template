@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface JobServiceRepository extends CrudRepository<JobService, Long> {}
+public interface JobServiceRepository extends CrudRepository<JobService, Long> {
+}

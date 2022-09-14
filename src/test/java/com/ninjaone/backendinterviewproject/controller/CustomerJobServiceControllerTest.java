@@ -6,7 +6,6 @@ import com.ninjaone.backendinterviewproject.model.Customer;
 import com.ninjaone.backendinterviewproject.model.CustomerJobService;
 import com.ninjaone.backendinterviewproject.model.JobService;
 import com.ninjaone.backendinterviewproject.service.CustomerJobServiceService;
-import com.ninjaone.backendinterviewproject.service.JobServiceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,26 +35,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureDataJpa
 public class CustomerJobServiceControllerTest {
     public static final Long ID = 1L;
-
-    @Autowired
-    private MockMvc mockMvc;
-
+    private static final String path = "/customer-jobservices";
     @Autowired
     ObjectMapper objectMapper;
-
+    @Autowired
+    private MockMvc mockMvc;
     @MockBean
     private CustomerJobServiceService service;
-
     private CustomerJobService entity;
-
-    private static final String path = "/customer-jobservices";
 
     @BeforeEach
     void setup() {
         entity = new CustomerJobService(
                 ID,
                 new Customer(1L, "customerName"),
-                new JobService(1L, "serviceName","1.0"));
+                new JobService(1L, "serviceName", "1.0"));
     }
 
     @Test

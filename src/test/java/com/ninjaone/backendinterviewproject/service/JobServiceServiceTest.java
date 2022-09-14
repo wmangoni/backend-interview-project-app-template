@@ -28,7 +28,7 @@ public class JobServiceServiceTest {
     private JobService entity;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         entity = new JobService(ID, "value", "1.0");
     }
 
@@ -49,7 +49,7 @@ public class JobServiceServiceTest {
     }
 
     @Test
-    void deleteJobServiceEntity(){
+    void deleteJobServiceEntity() {
         doNothing().when(repository).deleteById(ID);
         testObject.deleteJobServiceEntity(ID);
         Mockito.verify(repository, times(1)).deleteById(ID);

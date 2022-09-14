@@ -27,7 +27,7 @@ public class CustomerDeviceController {
     private List<CustomerDevice> getCustomersDevice() {
         return service.getCustomersDevice();
     }
-    
+
     @GetMapping("/{id}")
     private CustomerDevice getCustomerDeviceEntity(@PathVariable Long id) {
         return service.getCustomerDeviceEntity(id)

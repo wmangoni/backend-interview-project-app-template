@@ -1,7 +1,6 @@
 package com.ninjaone.backendinterviewproject.service;
 
 import com.ninjaone.backendinterviewproject.database.CustomerDeviceRepository;
-import com.ninjaone.backendinterviewproject.database.CustomerRepository;
 import com.ninjaone.backendinterviewproject.domain.DeviceType;
 import com.ninjaone.backendinterviewproject.model.Customer;
 import com.ninjaone.backendinterviewproject.model.CustomerDevice;
@@ -32,7 +31,7 @@ public class CustomerDeviceServiceTest {
     private CustomerDevice entity;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         entity = new CustomerDevice(ID, new Customer(1L, "name"), new Device(1L, "device1", DeviceType.MAC), 1L);
     }
 
@@ -54,7 +53,7 @@ public class CustomerDeviceServiceTest {
     }
 
     @Test
-    void deleteDeviceData(){
+    void deleteDeviceData() {
         doNothing().when(repository).deleteById(ID);
         testObject.deleteCustomerDeviceEntity(ID);
         Mockito.verify(repository, times(1)).deleteById(ID);

@@ -1,9 +1,7 @@
 package com.ninjaone.backendinterviewproject.service;
 
 import com.ninjaone.backendinterviewproject.database.CustomerRepository;
-import com.ninjaone.backendinterviewproject.database.DeviceRepository;
 import com.ninjaone.backendinterviewproject.model.Customer;
-import com.ninjaone.backendinterviewproject.model.Device;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

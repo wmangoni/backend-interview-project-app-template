@@ -29,7 +29,7 @@ public class DeviceServiceTest {
     private Device entity;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         entity = new Device(ID, "value", DeviceType.WINDOWS_WORKSTATION);
     }
 
@@ -49,7 +49,7 @@ public class DeviceServiceTest {
     }
 
     @Test
-    void deleteDeviceData(){
+    void deleteDeviceData() {
         doNothing().when(repository).deleteById(ID);
         testObject.deleteDeviceEntity(ID);
         Mockito.verify(repository, times(1)).deleteById(ID);

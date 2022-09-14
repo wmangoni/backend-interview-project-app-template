@@ -1,15 +1,15 @@
 package com.ninjaone.backendinterviewproject.service;
 
 import com.ninjaone.backendinterviewproject.database.CustomerJobServiceRepository;
-import com.ninjaone.backendinterviewproject.database.CustomerRepository;
 import com.ninjaone.backendinterviewproject.domain.JobServiceType;
-import com.ninjaone.backendinterviewproject.model.Customer;
-import com.ninjaone.backendinterviewproject.model.CustomerDevice;
 import com.ninjaone.backendinterviewproject.model.CustomerJobService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerJobServiceService {

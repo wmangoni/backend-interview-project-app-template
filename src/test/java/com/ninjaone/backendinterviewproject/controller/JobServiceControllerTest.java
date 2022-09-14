@@ -2,10 +2,7 @@ package com.ninjaone.backendinterviewproject.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ninjaone.backendinterviewproject.BackendInterviewProjectApplication;
-import com.ninjaone.backendinterviewproject.domain.DeviceType;
-import com.ninjaone.backendinterviewproject.model.Device;
 import com.ninjaone.backendinterviewproject.model.JobService;
-import com.ninjaone.backendinterviewproject.service.DeviceService;
 import com.ninjaone.backendinterviewproject.service.JobServiceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,9 +22,7 @@ import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,19 +33,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureDataJpa
 public class JobServiceControllerTest {
     public static final Long ID = 1L;
-
-    @Autowired
-    private MockMvc mockMvc;
-
+    private static final String path = "/jobservice";
     @Autowired
     ObjectMapper objectMapper;
-
+    @Autowired
+    private MockMvc mockMvc;
     @MockBean
     private JobServiceService service;
-
     private JobService entity;
-
-    private static final String path = "/jobservice";
 
     @BeforeEach
     void setup() {

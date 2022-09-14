@@ -1,9 +1,7 @@
 package com.ninjaone.backendinterviewproject.service;
 
 import com.ninjaone.backendinterviewproject.database.CustomerRepository;
-import com.ninjaone.backendinterviewproject.domain.DeviceType;
 import com.ninjaone.backendinterviewproject.model.Customer;
-import com.ninjaone.backendinterviewproject.model.Device;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +28,7 @@ public class CustomerServiceTest {
     private Customer entity;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         entity = new Customer(ID, "value");
     }
 
@@ -50,7 +48,7 @@ public class CustomerServiceTest {
     }
 
     @Test
-    void deleteDeviceData(){
+    void deleteDeviceData() {
         doNothing().when(repository).deleteById(ID);
         testObject.deleteCustomerEntity(ID);
         Mockito.verify(repository, times(1)).deleteById(ID);

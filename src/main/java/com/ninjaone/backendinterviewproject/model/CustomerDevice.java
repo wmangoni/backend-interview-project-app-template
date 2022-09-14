@@ -21,11 +21,11 @@ public class CustomerDevice {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="customerId", referencedColumnName="id")
+    @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "deviceId", referencedColumnName="id")
+    @JoinColumn(name = "deviceId", referencedColumnName = "id")
     private Device device;
 
     private Long quantity;

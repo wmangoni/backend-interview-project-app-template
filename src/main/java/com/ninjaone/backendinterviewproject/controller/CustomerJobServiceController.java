@@ -27,7 +27,7 @@ public class CustomerJobServiceController {
     private List<CustomerJobService> getCustomerJobServices() {
         return service.getCustomerJobServices();
     }
-    
+
     @GetMapping("/{id}")
     private CustomerJobService getCustomerJobServiceEntity(@PathVariable Long id) {
         return service.getCustomerJobServiceEntity(id)

@@ -5,8 +5,6 @@ import com.ninjaone.backendinterviewproject.service.JobServiceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,7 +27,7 @@ public class JobServiceController {
     private List<JobService> getJobServices() {
         return service.getJobService();
     }
-    
+
     @GetMapping("/{id}")
     private JobService getJobServiceEntity(@PathVariable Long id) {
         return service.getJobServiceEntity(id)

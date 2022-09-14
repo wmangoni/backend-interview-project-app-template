@@ -22,17 +22,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,25 +39,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureDataJpa
 public class CustomerControllerTest {
     public static final Long ID = 1L;
-
-    @Autowired
-    private MockMvc mockMvc;
-
+    private static final String path = "/customer";
     @Autowired
     ObjectMapper objectMapper;
-
+    @Autowired
+    private MockMvc mockMvc;
     @MockBean
     private CustomerService service;
-
     @MockBean
     private CustomerDeviceService customerDeviceService;
-
     @MockBean
     private CustomerJobServiceService customerJobServiceService;
-
     private Customer entity;
-
-    private static final String path = "/customer";
 
     @BeforeEach
     void setup() {

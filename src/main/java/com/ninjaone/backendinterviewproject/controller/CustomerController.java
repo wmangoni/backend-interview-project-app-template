@@ -7,13 +7,11 @@ import com.ninjaone.backendinterviewproject.model.CustomerJobService;
 import com.ninjaone.backendinterviewproject.service.CustomerDeviceService;
 import com.ninjaone.backendinterviewproject.service.CustomerJobServiceService;
 import com.ninjaone.backendinterviewproject.service.CustomerService;
-import com.ninjaone.backendinterviewproject.service.DeviceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/customer")
@@ -42,7 +40,7 @@ public class CustomerController {
     private List<Customer> getCustomers() {
         return service.getCustomers();
     }
-    
+
     @GetMapping("/{id}")
     private Customer getCustomerEntity(@PathVariable Long id) {
         return service.getCustomerEntity(id)
@@ -79,6 +77,7 @@ public class CustomerController {
     }
 
     private boolean hasAntivirus(List<CustomerJobService> jobServices) {
-        return jobServices.stream().anyMatch(c -> c.getJobService().getName().toUpperCase().equals(JobServiceType.ANTIVIRUS.name()));
+        return jobServices.stream()
+                .anyMatch(c -> c.getJobService().getName().toUpperCase().equals(JobServiceType.ANTIVIRUS.name()));
     }
 }
