@@ -21,6 +21,10 @@ public class JobServiceService {
         return new ArrayList<>((Collection<? extends JobService>) repository.findAll());
     }
 
+    public List<JobService> getJobServiceByName(final String name) {
+        return new ArrayList<>(repository.findByNameContaining(name));
+    }
+
     public JobService saveJobServiceEntity(JobService device) {
         return repository.save(device);
     }

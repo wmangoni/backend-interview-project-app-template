@@ -4,10 +4,11 @@ INSERT INTO DEVICE ("ID", "SYSTEM_NAME", "TYPE") VALUES
 (3, 'Windows Server', 1);
 
 INSERT INTO JOB_SERVICE ("ID", "NAME", "COST") VALUES
-(1, 'Antivirus', '5.0'),
+(1, 'Antivirus Windows', '5.0'),
 (2, 'Backup', '3.0'),
 (3, 'PSA', '2.0'),
-(4, 'Screen Share', '1.0');
+(4, 'Screen Share', '1.0'),
+(5, 'Antivirus Mac', '7.0');
 
 INSERT INTO CUSTOMER VALUES
 (1, 'customer A'),

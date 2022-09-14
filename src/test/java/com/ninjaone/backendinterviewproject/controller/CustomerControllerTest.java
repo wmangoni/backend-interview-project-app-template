@@ -8,6 +8,7 @@ import com.ninjaone.backendinterviewproject.model.*;
 import com.ninjaone.backendinterviewproject.service.CustomerDeviceService;
 import com.ninjaone.backendinterviewproject.service.CustomerJobServiceService;
 import com.ninjaone.backendinterviewproject.service.CustomerService;
+import com.ninjaone.backendinterviewproject.service.JobServiceService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,6 +51,8 @@ public class CustomerControllerTest {
     private CustomerDeviceService customerDeviceService;
     @MockBean
     private CustomerJobServiceService customerJobServiceService;
+    @MockBean
+    private JobServiceService jobServiceService;
     private Customer entity;
 
     @BeforeEach
@@ -131,6 +134,10 @@ public class CustomerControllerTest {
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .multiply(macQty.add(windowsQty));
 
+        List<JobService> antivirusJobServices = List.of(
+                new JobService(1L, "Antivirus Windows", "5.0"),
+                new JobService(1L, "Antivirus Mac", "7.0"));
+
         when(customerDeviceService.getDevicesByCustomerId(any())).thenReturn(devices);
         when(customerJobServiceService.getServicesByCustomerId(any())).thenReturn(jobServices);
 
@@ -139,6 +146,8 @@ public class CustomerControllerTest {
         when(customerDeviceService.getDevicesPrice(any())).thenReturn(devicesPrice);
 
         when(customerJobServiceService.getJobServicesCost(any(), any(), any())).thenReturn(jobServicesPrice);
+
+        when(jobServiceService.getJobServiceByName(any())).thenReturn(antivirusJobServices);
 
         mockMvc.perform(get(path + "/" + ID + "/calculate-price"))
                 .andExpect(status().isOk())
@@ -190,6 +199,10 @@ public class CustomerControllerTest {
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .multiply(macQty.add(windowsQty));
 
+        List<JobService> antivirusJobServices = List.of(
+                new JobService(1L, "Antivirus Windows", "5.0"),
+                new JobService(1L, "Antivirus Mac", "7.0"));
+
         when(customerDeviceService.getDevicesByCustomerId(any())).thenReturn(devices);
         when(customerJobServiceService.getServicesByCustomerId(any())).thenReturn(jobServices);
 
@@ -198,6 +211,8 @@ public class CustomerControllerTest {
         when(customerDeviceService.getDevicesPrice(any())).thenReturn(devicesPrice);
 
         when(customerJobServiceService.getJobServicesCost(any(), any(), any())).thenReturn(jobServicesPrice);
+
+        when(jobServiceService.getJobServiceByName(any())).thenReturn(antivirusJobServices);
 
         mockMvc.perform(get(path + "/" + ID + "/calculate-price"))
                 .andExpect(status().isOk())

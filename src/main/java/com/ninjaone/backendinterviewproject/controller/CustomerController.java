@@ -4,14 +4,17 @@ import com.ninjaone.backendinterviewproject.domain.JobServiceType;
 import com.ninjaone.backendinterviewproject.model.Customer;
 import com.ninjaone.backendinterviewproject.model.CustomerDevice;
 import com.ninjaone.backendinterviewproject.model.CustomerJobService;
+import com.ninjaone.backendinterviewproject.model.JobService;
 import com.ninjaone.backendinterviewproject.service.CustomerDeviceService;
 import com.ninjaone.backendinterviewproject.service.CustomerJobServiceService;
 import com.ninjaone.backendinterviewproject.service.CustomerService;
+import com.ninjaone.backendinterviewproject.service.JobServiceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/customer")
@@ -20,14 +23,17 @@ public class CustomerController {
     private final CustomerService service;
     private final CustomerDeviceService customerDeviceService;
     private final CustomerJobServiceService customerJobServiceService;
+    private final JobServiceService jobServiceService;
 
     public CustomerController(
             final CustomerService service,
             final CustomerDeviceService customerDeviceService,
-            final CustomerJobServiceService customerJobServiceService) {
+            final CustomerJobServiceService customerJobServiceService,
+            final JobServiceService jobServiceService) {
         this.service = service;
         this.customerDeviceService = customerDeviceService;
         this.customerJobServiceService = customerJobServiceService;
+        this.jobServiceService = jobServiceService;
     }
 
     @PostMapping
@@ -67,8 +73,23 @@ public class CustomerController {
         BigDecimal jobServicesPrice = customerJobServiceService.getJobServicesCost(jobServices, macQty, windowsQty);
 
         if (hasAntivirus(jobServices)) {
-            BigDecimal macAntivirusTotalCost = BigDecimal.valueOf(7.0).multiply(macQty);
-            BigDecimal windowsAntivirusTotalCost = BigDecimal.valueOf(5.0).multiply(windowsQty);
+            List<JobService> jobAntivirusServicesPrice = jobServiceService.getJobServiceByName("Antivirus");
+            BigDecimal antivirusMacPrice = new BigDecimal(jobAntivirusServicesPrice
+                    .stream()
+                    .filter(jobService -> jobService.getName().toUpperCase().contains("MAC"))
+                    .map(JobService::getCost)
+                    .findFirst()
+                    .orElseThrow());
+
+            BigDecimal antivirusWindowsPrice = new BigDecimal(jobAntivirusServicesPrice
+                    .stream()
+                    .filter(jobService -> jobService.getName().toUpperCase().contains("WINDOWS"))
+                    .map(JobService::getCost)
+                    .findFirst()
+                    .orElseThrow());
+
+            BigDecimal macAntivirusTotalCost = antivirusMacPrice.multiply(macQty);
+            BigDecimal windowsAntivirusTotalCost = antivirusWindowsPrice.multiply(windowsQty);
 
             return devicesPrice.add(jobServicesPrice).add(macAntivirusTotalCost.add(windowsAntivirusTotalCost));
         }
@@ -78,6 +99,6 @@ public class CustomerController {
 
     private boolean hasAntivirus(List<CustomerJobService> jobServices) {
         return jobServices.stream()
-                .anyMatch(c -> c.getJobService().getName().toUpperCase().equals(JobServiceType.ANTIVIRUS.name()));
+                .anyMatch(c -> c.getJobService().getName().equalsIgnoreCase(JobServiceType.ANTIVIRUS.name()));
     }
 }

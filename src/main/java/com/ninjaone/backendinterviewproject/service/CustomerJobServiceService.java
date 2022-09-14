@@ -45,7 +45,7 @@ public class CustomerJobServiceService {
             final BigDecimal windowsQty) {
 
         return jobServices.stream()
-                .filter(cjs -> !cjs.getJobService().getName().toUpperCase().equals(JobServiceType.ANTIVIRUS.name()))
+                .filter(cjs -> !cjs.getJobService().getName().equalsIgnoreCase(JobServiceType.ANTIVIRUS.name()))
                 .map(js -> new BigDecimal(js.getJobService().getCost()))
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .multiply(macQty.add(windowsQty));
