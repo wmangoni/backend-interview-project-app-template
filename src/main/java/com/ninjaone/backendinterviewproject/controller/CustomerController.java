@@ -10,11 +10,13 @@ import com.ninjaone.backendinterviewproject.service.CustomerJobServiceService;
 import com.ninjaone.backendinterviewproject.service.CustomerService;
 import com.ninjaone.backendinterviewproject.service.JobServiceService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer")
@@ -48,9 +50,13 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    private Customer getCustomerEntity(@PathVariable Long id) {
-        return service.getCustomerEntity(id)
-                .orElseThrow();
+    private ResponseEntity<?> getCustomerEntity(@PathVariable Long id) {
+        Optional<Customer> customer = service.getCustomerEntity(id);
+        if (customer.isPresent()) {
+            return ResponseEntity.ok(customer.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

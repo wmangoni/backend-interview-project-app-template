@@ -3,9 +3,11 @@ package com.ninjaone.backendinterviewproject.controller;
 import com.ninjaone.backendinterviewproject.model.Device;
 import com.ninjaone.backendinterviewproject.service.DeviceService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/device")
@@ -29,9 +31,13 @@ public class DeviceController {
     }
 
     @GetMapping("/{id}")
-    private Device getDeviceEntity(@PathVariable Long id) {
-        return service.getDeviceEntity(id)
-                .orElseThrow();
+    private ResponseEntity<?> getDeviceEntity(@PathVariable Long id) {
+        Optional<Device> device = service.getDeviceEntity(id);
+        if (device.isPresent()) {
+            return ResponseEntity.ok(device.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

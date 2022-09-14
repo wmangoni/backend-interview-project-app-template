@@ -14,3 +14,11 @@ spring:
       enabled: true
       settings:
         web-allow-others: false
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 544322299995-mrfk8nh0i3fcklcvkei39udehrcr0mnn.apps.googleusercontent.com
+            client-secret: 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

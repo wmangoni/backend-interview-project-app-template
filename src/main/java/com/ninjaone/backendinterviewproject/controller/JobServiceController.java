@@ -1,11 +1,14 @@
 package com.ninjaone.backendinterviewproject.controller;
 
+import com.ninjaone.backendinterviewproject.model.Device;
 import com.ninjaone.backendinterviewproject.model.JobService;
 import com.ninjaone.backendinterviewproject.service.JobServiceService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/jobservice")
@@ -29,9 +32,13 @@ public class JobServiceController {
     }
 
     @GetMapping("/{id}")
-    private JobService getJobServiceEntity(@PathVariable Long id) {
-        return service.getJobServiceEntity(id)
-                .orElseThrow();
+    private ResponseEntity<?> getJobServiceEntity(@PathVariable Long id) {
+        Optional<JobService> jobService = service.getJobServiceEntity(id);
+        if (jobService.isPresent()) {
+            return ResponseEntity.ok(jobService.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

@@ -4,7 +4,7 @@
 
 Run the `BackendInterviewProjectApplication` class
 
-Go to:
+In your browser, go to any of these urls:
 
 * http://localhost:8080/device/1
 * http://localhost:8080/jobservice/1
@@ -14,7 +14,7 @@ Go to:
 
 see all endpoints in "RMM Collection.postman_collection.json" file in root directory to test with postman
 
-You should see results for both of these. The application is working and connected to the H2 database.
+the browser will redirect you to google authentication screen, login with any google account and after that you will be able to access the endpoint
 
 ## H2 Console
 

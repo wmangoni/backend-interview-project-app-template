@@ -1,11 +1,14 @@
 package com.ninjaone.backendinterviewproject.controller;
 
 import com.ninjaone.backendinterviewproject.model.CustomerDevice;
+import com.ninjaone.backendinterviewproject.model.CustomerJobService;
 import com.ninjaone.backendinterviewproject.service.CustomerDeviceService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer-device")
@@ -29,9 +32,13 @@ public class CustomerDeviceController {
     }
 
     @GetMapping("/{id}")
-    private CustomerDevice getCustomerDeviceEntity(@PathVariable Long id) {
-        return service.getCustomerDeviceEntity(id)
-                .orElseThrow();
+    private ResponseEntity<?> getCustomerDeviceEntity(@PathVariable Long id) {
+        Optional<CustomerDevice> customerDevice = service.getCustomerDeviceEntity(id);
+        if (customerDevice.isPresent()) {
+            return ResponseEntity.ok(customerDevice.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
