@@ -2,16 +2,14 @@ package com.ninjaone.backendinterviewproject.service;
 
 import com.ninjaone.backendinterviewproject.database.CustomerJobServiceRepository;
 import com.ninjaone.backendinterviewproject.database.CustomerRepository;
+import com.ninjaone.backendinterviewproject.domain.JobServiceType;
 import com.ninjaone.backendinterviewproject.model.Customer;
 import com.ninjaone.backendinterviewproject.model.CustomerDevice;
 import com.ninjaone.backendinterviewproject.model.CustomerJobService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CustomerJobServiceService {
@@ -47,7 +45,7 @@ public class CustomerJobServiceService {
             final BigDecimal windowsQty) {
 
         return jobServices.stream()
-                .filter(cjs -> !cjs.getJobService().getName().equals("Antivirus"))
+                .filter(cjs -> !cjs.getJobService().getName().toUpperCase().equals(JobServiceType.ANTIVIRUS.name()))
                 .map(js -> new BigDecimal(js.getJobService().getCost()))
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .multiply(macQty.add(windowsQty));

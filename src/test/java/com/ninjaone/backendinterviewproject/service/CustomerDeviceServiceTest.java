@@ -1,7 +1,10 @@
 package com.ninjaone.backendinterviewproject.service;
 
-import com.ninjaone.backendinterviewproject.database.DeviceRepository;
+import com.ninjaone.backendinterviewproject.database.CustomerDeviceRepository;
+import com.ninjaone.backendinterviewproject.database.CustomerRepository;
 import com.ninjaone.backendinterviewproject.domain.DeviceType;
+import com.ninjaone.backendinterviewproject.model.Customer;
+import com.ninjaone.backendinterviewproject.model.CustomerDevice;
 import com.ninjaone.backendinterviewproject.model.Device;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,41 +20,43 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class DeviceJobServiceTest {
+public class CustomerDeviceServiceTest {
     public static final Long ID = 1L;
 
     @Mock
-    private DeviceRepository repository;
+    private CustomerDeviceRepository repository;
 
     @InjectMocks
-    private DeviceService testObject;
+    private CustomerDeviceService testObject;
 
-    private Device entity;
+    private CustomerDevice entity;
 
     @BeforeEach
     void setup(){
-        entity = new Device(ID, "value", DeviceType.WINDOWS_WORKSTATION);
+        entity = new CustomerDevice(ID, new Customer(1L, "name"), new Device(1L, "device1", DeviceType.MAC), 1L);
     }
 
     @Test
     void getDeviceData() {
         when(repository.findById(ID)).thenReturn(Optional.of(entity));
-        Optional<Device> deviceOptional = testObject.getDeviceEntity(ID);
-        Device actualEntity = deviceOptional.orElse(null);
+        Optional<CustomerDevice> customerOptional = testObject.getCustomerDeviceEntity(ID);
+        CustomerDevice actualEntity = customerOptional.orElse(null);
         assert actualEntity != null;
-        assertEquals(entity.getSystemName(), actualEntity.getSystemName());
+        assertEquals(entity.getCustomer().getName(), actualEntity.getCustomer().getName());
+        assertEquals(entity.getDevice().getSystemName(), actualEntity.getDevice().getSystemName());
+        assertEquals(entity.getQuantity(), actualEntity.getQuantity());
     }
 
     @Test
     void saveDeviceData() {
         when(repository.save(entity)).thenReturn(entity);
-        assertEquals(entity, testObject.saveDeviceEntity(entity));
+        assertEquals(entity, testObject.saveCustomerDeviceEntity(entity));
     }
 
     @Test
     void deleteDeviceData(){
         doNothing().when(repository).deleteById(ID);
-        testObject.deleteDeviceEntity(ID);
+        testObject.deleteCustomerDeviceEntity(ID);
         Mockito.verify(repository, times(1)).deleteById(ID);
     }
 }

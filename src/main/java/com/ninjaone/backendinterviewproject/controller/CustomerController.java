@@ -1,5 +1,6 @@
 package com.ninjaone.backendinterviewproject.controller;
 
+import com.ninjaone.backendinterviewproject.domain.JobServiceType;
 import com.ninjaone.backendinterviewproject.model.Customer;
 import com.ninjaone.backendinterviewproject.model.CustomerDevice;
 import com.ninjaone.backendinterviewproject.model.CustomerJobService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/customer")
@@ -77,6 +79,6 @@ public class CustomerController {
     }
 
     private boolean hasAntivirus(List<CustomerJobService> jobServices) {
-        return jobServices.stream().anyMatch(c -> c.getJobService().getName().equals("Antivirus"));
+        return jobServices.stream().anyMatch(c -> c.getJobService().getName().toUpperCase().equals(JobServiceType.ANTIVIRUS.name()));
     }
 }
