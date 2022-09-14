@@ -1,8 +1,4 @@
-# NinjaOne Backend Interview Project
-
-The project is configured to use an in-memory H2 database that is volatile. If you wish to make it maintain data on
-application shut down, you can change the spring.database.jdbc-url to point at a file
-like `jdbc:h2:file:/{your file path here}`
+# Implementation by William Mangoni
 
 ## Starting the Application
 
@@ -10,8 +6,13 @@ Run the `BackendInterviewProjectApplication` class
 
 Go to:
 
-* http://localhost:8080/sample/1
-* http://localhost:8080/sample/2
+* http://localhost:8080/device/1
+* http://localhost:8080/jobservice/1
+* http://localhost:8080/customer/1
+* http://localhost:8080/customer-device
+* http://localhost:8080/customer/1/calculate-price
+
+see all endpoints in "RMM Collection.postman_collection.json" file in root directory to test with postman
 
 You should see results for both of these. The application is working and connected to the H2 database.
 
@@ -34,11 +35,7 @@ You should be able to see a db console now that has the Sample Repository in it.
 Type:
 
 ```sql
-SELECT * FROM SAMPLE;
+SELECT * FROM DEVICE;
 ````
 
-Click `Run`, you should see two rows, for ids `1` and `2`
-
-### Suggestions
-
-Feel free to remove or repurpose the existing Sample Repository, Entity, Controller, and Service. 
+Click `Run`, you should see 3 rows
