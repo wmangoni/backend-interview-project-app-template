@@ -16,9 +16,12 @@ spring:
         web-allow-others: false
 
   security:
-    oauth2:
-      client:
-        registration:
-          google:
-            client-id: 544322299995-mrfk8nh0i3fcklcvkei39udehrcr0mnn.apps.googleusercontent.com
-            client-secret: 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
+    user:
+      name: will
+      password: mypass
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: 544322299995-mrfk8nh0i3fcklcvkei39udehrcr0mnn.apps.googleusercontent.com
+#            client-secret: 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
